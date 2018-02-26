@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Translation Workflow Tool",
   "main": "src/transflow.js",
+  "bin": {
+    "transflow": "./bin/transflow"
+  },
   "scripts": {
     "test": "mocha \"./test/**/!(index).js\" --exit",
     "lint": "./node_modules/eslint/bin/eslint.js --cache lib/** test/**"
