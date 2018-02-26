@@ -9,7 +9,6 @@ const transflow = require('../src/transflow');
 const genDir = path.join(__dirname, 'data/gen');
 const localeDir = path.join(__dirname, 'data/gen');
 
-
 describe('Transflow Test Suite', () => {
     beforeEach((done) => {
         fse.removeSync(path.join(__dirname, 'data/gen'));
@@ -29,5 +28,5 @@ describe('Transflow Test Suite', () => {
         const json = JSON.parse(fse.readFileSync(path.join(genDir, 'fr', 'entry.json')));
         assert(json.noopProp === 'willnotbetranslated');
         done();
-    })
+    });
 });
