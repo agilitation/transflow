@@ -1,0 +1,33 @@
+{
+  "name": "transflow",
+  "version": "1.0.0",
+  "description": "Translation Workflow Tool",
+  "main": "src/transflow.js",
+  "scripts": {
+    "test": "mocha \"./test/**/!(index).js\" --exit",
+    "lint": "./node_modules/eslint/bin/eslint.js --cache lib/** test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agilitation/transflow.git"
+  },
+  "keywords": [
+    "translation",
+    "gettext"
+  ],
+  "author": "Romain Bessuges-Meusy <romain@agilitation.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agilitation/transflow/issues"
+  },
+  "homepage": "https://github.com/agilitation/transflow#readme",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "gettext-parser": "^1.3.1"
+  },
+  "devDependencies": {
+    "depcheck": "^0.6.8",
+    "eslint": "^4.18.1",
+    "mocha": "^5.0.1"
+  }
+}

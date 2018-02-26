@@ -1,3 +1,5 @@
+.idea
+
 # Logs
 logs
 *.log
@@ -57,3 +59,5 @@ typings/
 # dotenv environment variables file
 .env
 
+test/data/gen
+test/data/locale
