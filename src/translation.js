@@ -21,4 +21,4 @@ module.exports = class Translation {
     const opts = this.options || {};
     return opts.html === true;
   }
-}
+};

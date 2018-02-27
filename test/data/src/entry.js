@@ -14,5 +14,6 @@ module.exports = {
   arrayOfTranslationsProp: [
     t({default: 'arrayOfTranslationsProp.firstItem.defaultValue'}),
     t({default: 'arrayOfTranslationsProp.secondItem.defaultValue'})
-  ]
+  ],
+  willBeTranslatedProp: t({default: 'TOBETRANSLATED'})
 };

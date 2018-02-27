@@ -25,6 +25,7 @@ const transflow = (options) => {
   for(let entry in options.entries) {
     if(options.entries.hasOwnProperty(entry)) {
       const entryPath = path.join(dirs.base, options.entries[entry]);
+      // eslint-disable-next-line
       const src = require(entryPath);
       const translations = getTranslationsFromObject(src);
       options.locales.forEach(locale => {

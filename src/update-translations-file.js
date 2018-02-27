@@ -3,7 +3,7 @@ const gettextParser = require('gettext-parser');
 
 module.exports = function updateTranslationsFile(translations, file) {
   fse.ensureFileSync(file);
-  const input = fse.readFileSync(file);
+  const input = fse.readFileSync(file, 'utf-8');
   const po = gettextParser.po.parse(input, 'utf-8');
   let updatedTranslations = Object.assign({}, po.translations[''] || {});
 
