@@ -27,5 +27,5 @@ module.exports = {
     ]
   ],
   htmlProp: t({html: true}),
-  autoDefaultProp: t('autoDefault'),
+  autoDefaultProp: t('autoDefault')
 };
