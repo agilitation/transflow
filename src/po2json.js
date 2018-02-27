@@ -2,7 +2,6 @@ const fse = require('fs-extra');
 const path = require('path');
 const gettextParser = require('gettext-parser');
 const setValue = require('./set-value');
-const clone = require('clone');
 
 module.exports = function po2json(srcObject, translations, file, output) {
   fse.ensureFileSync(file);
@@ -12,7 +11,7 @@ module.exports = function po2json(srcObject, translations, file, output) {
   const po = gettextParser.po.parse(input, 'utf-8');
   const poTranslations = po.translations[''] || {};
 
-  let localizedObject = clone(srcObject);
+  let localizedObject = srcObject;
 
   translations.forEach(translation => {
     if(translation.isHTML() === true) {

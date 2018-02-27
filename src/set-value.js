@@ -7,27 +7,37 @@
  * @param {*} value anything
  */
 module.exports = function setValue(target, path, value) {
-  const parts = path.split('.');
+  const parts = path.replace('][', '].[').split('.');
   let parent = target;
   while(parts.length > 1) {
     // is it an "array" path
     const bracketIndex = parts[0].indexOf('[');
     if(bracketIndex !== -1) {
-      // yes it is
-      // get the array name
-      const propName = parts[0].substring(0, bracketIndex);
-      // get the row index
+      // yes it is, grab the index
       const index = parseInt(parts[0].substring(bracketIndex + 1, parts[0].length - 1));
-      // if the array does not exist in the parent, create it
-      if(!Array.isArray(parent[propName])) {
-        parent[propName] = [];
+      // but it might be an array right now
+      if(bracketIndex === 0) {
+        if(!Array.isArray(parent)) {
+          parent = [];
+        }
+        if(typeof parent[index] === 'undefined'){
+          parent[index] = {};
+        }
+        parent = parent[index];
+      } else {
+        // it's an array in an object
+        // get the array prop name
+        const propName = parts[0].substring(0, bracketIndex);
+        // if the array does not exist in the parent, create it
+        if(!Array.isArray(parent[propName])) {
+          parent[propName] = [];
+        }
+        // if the index does not exist...
+        if(typeof parent[propName][index] === 'undefined') {
+          parent[propName][index] = {};
+        }
+        parent = parent[propName][index];
       }
-
-      if(typeof parent[propName][index] === 'undefined') {
-        parent[propName][index] = {};
-      }
-
-      parent = parent[propName][index];
     } else {
       if(typeof parent[parts[0]] === 'undefined') {
         parent[parts[0]] = {};
@@ -38,11 +48,16 @@ module.exports = function setValue(target, path, value) {
   }
 
   const bracketIndex = parts[0].indexOf('[');
-
+  // last element is an array
   if(bracketIndex !== -1) {
-    const propName = parts[0].substring(0, bracketIndex);
     const index = parts[0].substring(bracketIndex + 1, parts[0].length - 1);
-    parent[propName][index] = value;
+    // last element is a raw array
+    if(bracketIndex === 0){
+      parent[index] = value;
+    } else {
+      const propName = parts[0].substring(0, bracketIndex);
+      parent[propName][index] = value;
+    }
   } else {
     parent[parts[0]] = value;
   }

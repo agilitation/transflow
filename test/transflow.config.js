@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entries: {
-    entry: './data/src/entry.js'
+    entry: './data/src/entry.js',
+    personalDataTypes: './data/src/personalDataTypes.js'
   },
   locales: ['en', 'fr'],
   defaultLocale: 'en', // optional

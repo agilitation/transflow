@@ -6,6 +6,7 @@ const assert = require('assert');
 const options = require('./transflow.config');
 const transflow = require('../src/transflow');
 
+const srcDir = path.join(__dirname, 'data/src');
 const genDir = path.join(__dirname, 'data/gen');
 const localeDir = path.join(__dirname, 'data/locale');
 
@@ -48,6 +49,30 @@ describe('Transflow Test Suite', () => {
     transflow(options);
     const json = JSON.parse(fse.readFileSync(jsonFile, 'utf-8'));
     assert(json.willBeTranslatedProp === 'TRANSLATED');
+    done();
+  });
+
+  it('create english json', done => {
+    transflow(options);
+    const poFile = path.join(localeDir, 'en', 'personalDataTypes.po');
+    const englishPoFile = path.join(srcDir, 'personalDataTypes-en.po');
+    const jsonFile = path.join(genDir, 'en', 'personalDataTypes.json');
+    fse.copySync(englishPoFile, poFile);
+    transflow(options);
+    const json = JSON.parse(fse.readFileSync(jsonFile, 'utf-8'));
+    assert(Array.isArray(json), 'JSON must be array');
+    assert.equal(json[0].label, 'Civil status', 'Label of first element should be "Civil status"');
+    done();
+  });
+
+  it('handle arrays of arrays', done => {
+    transflow(options);
+    const jsonFile = path.join(genDir, 'fr', 'entry.json');
+    const json = JSON.parse(fse.readFileSync(jsonFile, 'utf-8'));
+    assert(Array.isArray(json.arrayOfArraysProp));
+    assert.equal(json.arrayOfArraysProp.length, 2);
+    assert(Array.isArray(json.arrayOfArraysProp[0]));
+    assert.equal(json.arrayOfArraysProp[0].length, 2);
     done();
   });
 });

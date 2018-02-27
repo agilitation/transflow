@@ -15,5 +15,15 @@ module.exports = {
     t({default: 'arrayOfTranslationsProp.firstItem.defaultValue'}),
     t({default: 'arrayOfTranslationsProp.secondItem.defaultValue'})
   ],
-  willBeTranslatedProp: t({default: 'TOBETRANSLATED'})
+  willBeTranslatedProp: t({default: 'TOBETRANSLATED'}),
+  arrayOfArraysProp: [
+    [
+      t({default: 'arrayOfArrays(0,0)'}),
+      t({default: 'arrayOfArrays(0,1)'})
+    ],
+    [
+      t({default: 'arrayOfArrays(1,0)'}),
+      t({default: 'arrayOfArrays(1,1)'})
+    ]
+  ]
 };

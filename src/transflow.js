@@ -14,6 +14,7 @@ const transflow = (options) => {
   const updateTranslationsFile = require('./update-translations-file');
   const po2json = require('./po2json');
   const path = require('path');
+  const clone = require('clone');
 
   const dirs = {
     base: options.baseDir || process.cwd()
@@ -26,7 +27,7 @@ const transflow = (options) => {
     if(options.entries.hasOwnProperty(entry)) {
       const entryPath = path.join(dirs.base, options.entries[entry]);
       // eslint-disable-next-line
-      const src = require(entryPath);
+      const src = clone(require(entryPath));
       const translations = getTranslationsFromObject(src);
       options.locales.forEach(locale => {
         updateTranslationsFile(translations, `${dirs.locales}/${locale}/${entry}.po`);
