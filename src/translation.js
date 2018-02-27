@@ -1,6 +1,6 @@
 module.exports = class Translation {
   constructor(options) {
-    this.options = options;
+    this.options = (typeof options === 'string') ? {default: options} : options || {};
   }
 
   toPO() {

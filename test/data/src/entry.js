@@ -26,5 +26,6 @@ module.exports = {
       t({default: 'arrayOfArrays(1,1)'})
     ]
   ],
-  htmlProp: t({html: true})
+  htmlProp: t({html: true}),
+  autoDefaultProp: t('autoDefault'),
 };
