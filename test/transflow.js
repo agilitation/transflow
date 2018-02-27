@@ -10,23 +10,23 @@ const genDir = path.join(__dirname, 'data/gen');
 const localeDir = path.join(__dirname, 'data/gen');
 
 describe('Transflow Test Suite', () => {
-    beforeEach((done) => {
-        fse.removeSync(path.join(__dirname, 'data/gen'));
-        fse.removeSync(path.join(__dirname, 'data/locale'));
-        done();
-    });
+  beforeEach((done) => {
+    fse.removeSync(path.join(__dirname, 'data/gen'));
+    fse.removeSync(path.join(__dirname, 'data/locale'));
+    done();
+  });
 
-    it('creates the directories', done => {
-        transflow(options);
-        assert(fse.pathExistsSync(genDir), true);
-        assert(fse.pathExistsSync(localeDir), true);
-        done();
-    });
+  it('creates the directories', done => {
+    transflow(options);
+    assert(fse.pathExistsSync(genDir), true);
+    assert(fse.pathExistsSync(localeDir), true);
+    done();
+  });
 
-    it('leaves text properties intact', done => {
-        transflow(options);
-        const json = JSON.parse(fse.readFileSync(path.join(genDir, 'fr', 'entry.json')));
-        assert(json.noopProp === 'willnotbetranslated');
-        done();
-    });
+  it('leaves text properties intact', done => {
+    transflow(options);
+    const json = JSON.parse(fse.readFileSync(path.join(genDir, 'fr', 'entry.json')));
+    assert(json.noopProp === 'willnotbetranslated');
+    done();
+  });
 });

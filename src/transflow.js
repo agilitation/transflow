@@ -16,29 +16,29 @@ const fse = require('fs-extra');
  */
 const transflow = (options) => {
 
-    const dirs = {
-        base: options.baseDir || process.cwd()
-    };
+  const dirs = {
+    base: options.baseDir || process.cwd()
+  };
 
-    dirs.locales = path.join(dirs.base, options.localeDir || 'locale');
-    dirs.gen = path.join(dirs.base, options.genDir || 'gen');
+  dirs.locales = path.join(dirs.base, options.localeDir || 'locale');
+  dirs.gen = path.join(dirs.base, options.genDir || 'gen');
 
-    for(let entry in options.entries) {
-        if(options.entries.hasOwnProperty(entry)) {
-            const entryPath = path.join(dirs.base, options.entries[entry]);
-            const src = require(entryPath);
-            const translations = getTranslationsFromObject(src);
-            options.locales.forEach(locale => {
-                updateTranslationsFile(translations, `${dirs.locales}/${locale}/${entry}.po`);
-                po2json(
-                    src,
-                    translations,
-                    `${dirs.locales}/${locale}/${entry}.po`,
-                    `${dirs.gen}/${locale}/${entry}.json`
-                )
-            });
-        }
+  for(let entry in options.entries) {
+    if(options.entries.hasOwnProperty(entry)) {
+      const entryPath = path.join(dirs.base, options.entries[entry]);
+      const src = require(entryPath);
+      const translations = getTranslationsFromObject(src);
+      options.locales.forEach(locale => {
+        updateTranslationsFile(translations, `${dirs.locales}/${locale}/${entry}.po`);
+        po2json(
+          src,
+          translations,
+          `${dirs.locales}/${locale}/${entry}.po`,
+          `${dirs.gen}/${locale}/${entry}.json`
+        )
+      });
     }
+  }
 };
 
 transflow.t = (opts) => new Translation(opts);
