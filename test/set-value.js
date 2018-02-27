@@ -4,7 +4,6 @@ const assert = require('assert');
 const setValue = require('../src/set-value');
 
 describe('Set Value Test Suite', () => {
-
   it('should set a property', done => {
     let obj = {};
     setValue(obj, 'prop', 'value');
@@ -22,7 +21,6 @@ describe('Set Value Test Suite', () => {
   it('should set an array literal value', done => {
     let obj = {};
     setValue(obj, 'arr[0]', 'value');
-    console.info(obj);
     assert.equal(obj.arr[0], 'value');
     done();
   });
@@ -62,5 +60,4 @@ describe('Set Value Test Suite', () => {
     assert.equal(obj.nested[0][0].val, 'value');
     done();
   });
-
 });
