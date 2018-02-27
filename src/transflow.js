@@ -1,9 +1,3 @@
-const Translation = require('./translation');
-const getTranslationsFromObject = require('./translations-from-object');
-const updateTranslationsFile = require('./update-translations-file');
-const po2json = require('./po2json');
-const path = require('path');
-const fse = require('fs-extra');
 /**
  *
  * @param {Object} options
@@ -15,6 +9,11 @@ const fse = require('fs-extra');
  * @param {String} [options.baseDir]
  */
 const transflow = (options) => {
+
+  const getTranslationsFromObject = require('./translations-from-object');
+  const updateTranslationsFile = require('./update-translations-file');
+  const po2json = require('./po2json');
+  const path = require('path');
 
   const dirs = {
     base: options.baseDir || process.cwd()
@@ -40,6 +39,8 @@ const transflow = (options) => {
     }
   }
 };
+
+const Translation = require('./translation');
 
 transflow.t = (opts) => new Translation(opts);
 
