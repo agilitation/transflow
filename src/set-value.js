@@ -12,16 +12,17 @@ module.exports = function setValue(target, path, value) {
   while(parts.length > 1) {
     // is it an "array" path
     const bracketIndex = parts[0].indexOf('[');
+    const sub = () => parts[1].indexOf('[') === 0 ? [] : {};
     if(bracketIndex !== -1) {
       // yes it is, grab the index
       const index = parseInt(parts[0].substring(bracketIndex + 1, parts[0].length - 1));
       // but it might be an array right now
       if(bracketIndex === 0) {
         if(!Array.isArray(parent)) {
-          parent = [];
+          throw new Error('specified target is not an array');
         }
-        if(typeof parent[index] === 'undefined'){
-          parent[index] = {};
+        if(typeof parent[index] === 'undefined') {
+          parent[index] = sub();
         }
         parent = parent[index];
       } else {
@@ -34,7 +35,7 @@ module.exports = function setValue(target, path, value) {
         }
         // if the index does not exist...
         if(typeof parent[propName][index] === 'undefined') {
-          parent[propName][index] = {};
+          parent[propName][index] = sub();
         }
         parent = parent[propName][index];
       }
@@ -52,10 +53,16 @@ module.exports = function setValue(target, path, value) {
   if(bracketIndex !== -1) {
     const index = parts[0].substring(bracketIndex + 1, parts[0].length - 1);
     // last element is a raw array
-    if(bracketIndex === 0){
+    if(bracketIndex === 0) {
+      if(!Array.isArray(parent)) {
+        throw new Error('specified target is not an array');
+      }
       parent[index] = value;
     } else {
       const propName = parts[0].substring(0, bracketIndex);
+      if(!Array.isArray(parent[propName])) {
+        parent[propName] = [];
+      }
       parent[propName][index] = value;
     }
   } else {
