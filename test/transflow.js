@@ -65,7 +65,7 @@ describe('Transflow Test Suite', () => {
     done();
   });
 
-  it('handle arrays of arrays', done => {
+  it('should handle arrays of arrays', done => {
     transflow(options);
     const jsonFile = path.join(genDir, 'fr', 'entry.json');
     const json = JSON.parse(fse.readFileSync(jsonFile, 'utf-8'));
@@ -73,6 +73,36 @@ describe('Transflow Test Suite', () => {
     assert.equal(json.arrayOfArraysProp.length, 2);
     assert(Array.isArray(json.arrayOfArraysProp[0]));
     assert.equal(json.arrayOfArraysProp[0].length, 2);
+    done();
+  });
+
+  it('should handle HTML translations', done => {
+    transflow(options);
+    const jsonFiles = {
+      fr: path.join(genDir, 'fr', 'entry.json'),
+      en: path.join(genDir, 'en', 'entry.json')
+    };
+    const htmlFiles = {
+      fr: path.join(localeDir, 'fr', 'html', 'htmlProp.html'),
+      en: path.join(localeDir, 'en', 'html', 'htmlProp.html')
+    };
+    const htmlStrings = {
+      en: '<h1>Hello</h1>',
+      fr: '<h1>Bonjour</h1>'
+    };
+    assert(fse.pathExistsSync(htmlFiles.fr));
+    assert(fse.pathExistsSync(htmlFiles.en));
+    // Write htmlStrings in files
+    fse.writeFileSync(htmlFiles.fr, htmlStrings.fr);
+    fse.writeFileSync(htmlFiles.en, htmlStrings.en);
+
+    transflow(options);
+    const json = {
+      fr: JSON.parse(fse.readFileSync(jsonFiles.fr, 'utf-8')),
+      en: JSON.parse(fse.readFileSync(jsonFiles.en, 'utf-8'))
+    };
+    assert.equal(json.fr.htmlProp, htmlStrings.fr);
+    assert.equal(json.en.htmlProp, htmlStrings.en);
     done();
   });
 });

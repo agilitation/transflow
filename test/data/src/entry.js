@@ -25,5 +25,6 @@ module.exports = {
       t({default: 'arrayOfArrays(1,0)'}),
       t({default: 'arrayOfArrays(1,1)'})
     ]
-  ]
+  ],
+  htmlProp: t({html: true})
 };
