@@ -10,7 +10,6 @@
  * @param {String} [options.prettyPrint] default is true
  */
 const transflow = (options) => {
-
   const getTranslationsFromObject = require('./translations-from-object');
   const updateTranslationsFile = require('./update-translations-file');
   const createIndex = require('./createIndex');
@@ -61,6 +60,5 @@ transflow.defaults = module.exports = {
   genDir: './gen',
   prettyPrint: true
 };
-
 
 module.exports = transflow;
