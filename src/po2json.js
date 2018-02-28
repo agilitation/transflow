@@ -3,7 +3,7 @@ const path = require('path');
 const gettextParser = require('gettext-parser');
 const setValue = require('./set-value');
 
-module.exports = function po2json(srcObject, translations, file, output) {
+module.exports = function po2json(srcObject, translations, file, output, prettyPrint) {
   fse.ensureFileSync(file);
   fse.ensureFileSync(output);
 
@@ -22,6 +22,6 @@ module.exports = function po2json(srcObject, translations, file, output) {
       setValue(localizedObject, translation.name, poTranslations[translation.name].msgstr[0]);
     }
   });
-  fse.writeFileSync(output, JSON.stringify(localizedObject));
+  fse.writeFileSync(output, JSON.stringify(localizedObject, null, prettyPrint ? 2 : null));
 };
 

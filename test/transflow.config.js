@@ -7,7 +7,8 @@ module.exports = {
   },
   locales: ['en', 'fr'],
   defaultLocale: 'en', // optional
+  createIndex: true,
   localeDir: './data/locale',
   genDir: './data/gen',
-  baseDir: path.join(__dirname, '.') // optional
+  baseDir: path.join(__dirname, '.')
 };
